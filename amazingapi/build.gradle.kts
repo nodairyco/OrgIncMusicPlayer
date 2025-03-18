@@ -20,6 +20,7 @@ repositories {
 }
 
 dependencies {
+    implementation("org.jaudiotagger:jaudiotagger:2.0.1")
     implementation(libs.ktor.server.core)
     implementation(libs.ktor.server.netty)
     implementation(libs.logback.classic)
