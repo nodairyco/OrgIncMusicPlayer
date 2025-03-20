@@ -66,22 +66,21 @@ fun Application.configureRouting() {
                 call.respondText(htmlContent, ContentType.Text.Html)
             }
 
-            get("api/songs/{songName}/file") {
-                val songName = call.parameters["songName"] ?: return@get call.respond(
-                        HttpStatusCode.BadRequest, "Song name is required"
-                )
+        }
+        get("api/songs/{songName}/file") {
+            val songName = call.parameters["songName"] ?: return@get call.respond(
+                HttpStatusCode.BadRequest, "Song name is required"
+            )
 
-                val baseMusicFolder = File("/Users/mr.mgeli/Desktop/(2007) Fear Of A Blank Planet")
-                val songFile = File(baseMusicFolder, "$songName.mp3")
+            val baseMusicFolder = File("/Users/mr.mgeli/Desktop/(2007) Fear Of A Blank Planet")
+            val songFile = File(baseMusicFolder, "$songName.mp3")
 
-                if (!songFile.exists()) {
-                    return@get call.respond(HttpStatusCode.NotFound, "Song not found")
-                }
-
-                call.response.header(HttpHeaders.ContentType, ContentType.Audio.MPEG.toString())
-                call.respondFile(songFile)
+            if (!songFile.exists()) {
+                return@get call.respond(HttpStatusCode.NotFound, "Song not found")
             }
 
+            call.response.header(HttpHeaders.ContentType, ContentType.Audio.MPEG.toString())
+            call.respondFile(songFile)
         }
     }
 }
